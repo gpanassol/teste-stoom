@@ -1,8 +1,10 @@
 package br.com.stoom.store.model;
 
 import javax.persistence.*;
+import lombok.Data;
 
 @Entity
+@Data
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "product_sequence")
