@@ -102,4 +102,29 @@ public class ProductBO implements IProductBO {
         productRepository.deleteById(id);
     }
 
+    @Override
+    public List<ProductDTO> findAllByCategoryId(Long categoryId) {
+
+        List<Product> products = productRepository.findAllByCategoriesId(categoryId);
+        if(!products.isEmpty()) {
+            return products.stream()
+                .map(productMapper::convertToDTO)
+                .collect(Collectors.toList());
+        }
+
+        return List.of();
+    }
+
+    @Override
+    public List<ProductDTO> findAllByBrandId(Long brandId) {
+        List<Product> products = productRepository.findAllByBrandsId(brandId);
+        if(!products.isEmpty()) {
+            return products.stream()
+                .map(productMapper::convertToDTO)
+                .collect(Collectors.toList());
+        }
+
+        return List.of();
+    }
+
 }

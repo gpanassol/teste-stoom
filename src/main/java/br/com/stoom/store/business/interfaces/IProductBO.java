@@ -15,4 +15,8 @@ public interface IProductBO {
     ProductDTO updateProduct(Long id, ProductDTO productDTO);
 
     void deleteProduct(Long id);
+
+    List<ProductDTO> findAllByCategoryId(Long categoryId);
+
+    List<ProductDTO> findAllByBrandId(Long brandId);
 }

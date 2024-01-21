@@ -37,6 +37,24 @@ public class ProductController {
         return new ResponseEntity<>(productDTO, HttpStatus.OK);
     }
 
+    @GetMapping(value = "/category/{id}")
+    public ResponseEntity<List<ProductDTO>> findAllByCategoryId(@PathVariable Long id) {
+        List<ProductDTO> products = productService.findAllByCategoryId(id);
+        if(!products.isEmpty())
+            return new ResponseEntity<>(products, HttpStatus.OK);
+        else
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
+    @GetMapping(value = "/brand/{id}")
+    public ResponseEntity<List<ProductDTO>> findAllByBrandId(@PathVariable Long id) {
+        List<ProductDTO> products = productService.findAllByBrandId(id);
+        if(!products.isEmpty())
+            return new ResponseEntity<>(products, HttpStatus.OK);
+        else
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
     @PostMapping
     public ResponseEntity<ProductDTO> create(@RequestBody ProductDTO productDTO) {
         ProductDTO saveProduct = productService.saveProduct(productDTO);
