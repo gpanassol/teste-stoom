@@ -10,7 +10,11 @@ public class ProductMapper {
 
     private final ModelMapper modelMapper = new ModelMapper();
 
-    public ProductDTO convertoToDTO(Product entity) {
+    public ProductDTO convertToDTO(Product entity) {
         return modelMapper.map(entity, ProductDTO.class);
+    }
+
+    public Product convertToEntity(ProductDTO productDTO) {
+        return modelMapper.map(productDTO, Product.class);
     }
 }

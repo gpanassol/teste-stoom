@@ -1,7 +1,7 @@
 package br.com.stoom.store.controller;
 
-import br.com.stoom.store.business.ProductBO;
-import br.com.stoom.store.dto.ProductDTO;
+import br.com.stoom.store.business.CategoryBO;
+import br.com.stoom.store.dto.CategoryDTO;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,15 +16,15 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/api/products")
-public class ProductController {
+@RequestMapping("/api/category")
+public class CategoryController {
 
     @Autowired
-    private ProductBO productService;
+    private CategoryBO categoryService;
 
     @GetMapping
-    public ResponseEntity<List<ProductDTO>> findAll() {
-        List<ProductDTO> products = productService.findAll();
+    public ResponseEntity<List<CategoryDTO>> findAll() {
+        List<CategoryDTO> products = categoryService.findAll();
         if(!products.isEmpty())
             return new ResponseEntity<>(products, HttpStatus.OK);
         else
@@ -32,27 +32,26 @@ public class ProductController {
     }
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<ProductDTO> findById(@PathVariable Long id) {
-        ProductDTO productDTO = productService.findById(id);
-        return new ResponseEntity<>(productDTO, HttpStatus.OK);
+    public ResponseEntity<CategoryDTO> findById(@PathVariable Long id) {
+        CategoryDTO categoryDTO = categoryService.findById(id);
+        return new ResponseEntity<>(categoryDTO, HttpStatus.OK);
     }
 
     @PostMapping
-    public ResponseEntity<ProductDTO> create(@RequestBody ProductDTO productDTO) {
-        ProductDTO saveProduct = productService.saveProduct(productDTO);
-        return new ResponseEntity<>(saveProduct, HttpStatus.CREATED);
+    public ResponseEntity<CategoryDTO> create(@RequestBody CategoryDTO categoryDTO) {
+        CategoryDTO saveCategory = categoryService.saveCategory(categoryDTO);
+        return new ResponseEntity<>(saveCategory, HttpStatus.CREATED);
     }
 
     @PutMapping(value = "/{id}")
-    public ResponseEntity<ProductDTO> update(@PathVariable Long id, @RequestBody ProductDTO productDTO) {
-        ProductDTO updateProduct = productService.updateProduct(id, productDTO);
-        return new ResponseEntity<>(updateProduct, HttpStatus.OK);
+    public ResponseEntity<CategoryDTO> updated(@PathVariable Long id, @RequestBody CategoryDTO categoryDTO) {
+        CategoryDTO updateCategory = categoryService.updateCategory(id, categoryDTO);
+        return new ResponseEntity<>(updateCategory, HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity delete(@PathVariable Long id) {
-        productService.deleteProduct(id);
+        categoryService.deleteCategory(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
-
 }
