@@ -6,6 +6,7 @@ import br.com.stoom.store.exception.BrandNotFoundException;
 import br.com.stoom.store.mapper.BrandMapper;
 import br.com.stoom.store.model.Brand;
 import br.com.stoom.store.repository.BrandRepository;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +23,7 @@ public class BrandBO implements IBrandBO {
 
     @Override
     public List<BrandDTO> findAll() {
-        List<Brand> brands = brandRepository.findAll();
+        List<Brand> brands = brandRepository.findByDeletionDateIsNull();
         if(!brands.isEmpty()) {
             return brands.stream()
                 .map(brandMapper::convertToDTO)
@@ -34,7 +35,7 @@ public class BrandBO implements IBrandBO {
 
     @Override
     public BrandDTO findById(Long id) {
-        Brand brand = brandRepository.findById(id)
+        Brand brand = brandRepository.findByIdAndDeletionDateIsNull(id)
             .orElseThrow(() -> new BrandNotFoundException("Brand not found with id: " + id));
         return brandMapper.convertToDTO(brand);
     }
@@ -48,7 +49,7 @@ public class BrandBO implements IBrandBO {
 
     @Override
     public BrandDTO updateBrand(Long id, BrandDTO brandDTO) {
-        brandRepository.findById(id)
+        brandRepository.findByIdAndDeletionDateIsNull(id)
             .orElseThrow(() -> new BrandNotFoundException("Brand not found with id: " + id));
 
         Brand brand = brandMapper.convertToEntity(brandDTO);
@@ -61,8 +62,12 @@ public class BrandBO implements IBrandBO {
 
     @Override
     public void deleteBrand(Long id) {
-        brandRepository.findById(id)
+        Brand brand = brandRepository.findByIdAndDeletionDateIsNull(id)
             .orElseThrow(() -> new BrandNotFoundException("Brand not found with id: " + id));
-        brandRepository.deleteById(id);
+
+        brand.setId(id);
+        brand.setDeletionDate(LocalDateTime.now());
+
+        brandRepository.save(brand);
     }
 }

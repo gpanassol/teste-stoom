@@ -6,6 +6,7 @@ import br.com.stoom.store.exception.CategoryNotFoundException;
 import br.com.stoom.store.mapper.CategoryMapper;
 import br.com.stoom.store.model.Category;
 import br.com.stoom.store.repository.CategoryRepository;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +23,7 @@ public class CategoryBO implements ICategoryBO {
 
     @Override
     public List<CategoryDTO> findAll() {
-        List<Category> categories = categoryRepository.findAll();
+        List<Category> categories = categoryRepository.findByDeletionDateIsNull();
         if(!categories.isEmpty()) {
             return categories.stream()
                 .map(categoryMapper::convertToDTO)
@@ -34,7 +35,7 @@ public class CategoryBO implements ICategoryBO {
 
     @Override
     public CategoryDTO findById(Long id) {
-        Category category = categoryRepository.findById(id)
+        Category category = categoryRepository.findByIdAndDeletionDateIsNull(id)
             .orElseThrow(() -> new CategoryNotFoundException("Category not found with id: " + id));
         return categoryMapper.convertToDTO(category);
     }
@@ -48,7 +49,7 @@ public class CategoryBO implements ICategoryBO {
 
     @Override
     public CategoryDTO updateCategory(Long id, CategoryDTO categoryDTO) {
-        categoryRepository.findById(id)
+        categoryRepository.findByIdAndDeletionDateIsNull(id)
             .orElseThrow(() -> new CategoryNotFoundException("Category not found with id: " + id));
 
         Category category = categoryMapper.convertToEntity(categoryDTO);
@@ -61,9 +62,13 @@ public class CategoryBO implements ICategoryBO {
 
     @Override
     public void deleteCategory(Long id) {
-        categoryRepository.findById(id)
+        Category category = categoryRepository.findById(id)
             .orElseThrow(() -> new CategoryNotFoundException("Category not found with id: " + id));
-        categoryRepository.deleteById(id);
+
+        category.setId(id);
+        category.setDeletionDate(LocalDateTime.now());
+
+        categoryRepository.save(category);
     }
 
 }

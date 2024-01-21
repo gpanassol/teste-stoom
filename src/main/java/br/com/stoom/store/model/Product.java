@@ -1,5 +1,6 @@
 package br.com.stoom.store.model;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -53,4 +54,7 @@ public class Product {
 
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Price> prices = new ArrayList<>();
+
+    @Column(name = "deletionDate")
+    private LocalDateTime deletionDate;
 }

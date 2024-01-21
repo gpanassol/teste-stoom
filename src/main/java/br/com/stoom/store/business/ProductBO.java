@@ -10,6 +10,7 @@ import br.com.stoom.store.model.Product;
 import br.com.stoom.store.repository.BrandRepository;
 import br.com.stoom.store.repository.CategoryRepository;
 import br.com.stoom.store.repository.ProductRepository;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +34,7 @@ public class ProductBO implements IProductBO {
 
     @Override
     public List<ProductDTO> findAll() {
-        List<Product> products = productRepository.findAll();
+        List<Product> products = productRepository.findByDeletionDateIsNull();
         if(!products.isEmpty()) {
             return products.stream()
                 .map(productMapper::convertToDTO)
@@ -45,7 +46,7 @@ public class ProductBO implements IProductBO {
 
     @Override
     public ProductDTO findById(Long id){
-        Product product = productRepository.findById(id)
+        Product product = productRepository.findByIdAndDeletionDateIsNull(id)
             .orElseThrow(() -> new ProductNotFoundException("Product not found with id: " + id));
         return productMapper.convertToDTO(product);
     }
@@ -69,7 +70,7 @@ public class ProductBO implements IProductBO {
     @Transactional
     public ProductDTO updateProduct(Long id, ProductDTO productDTO) {
 
-        productRepository.findById(id)
+        productRepository.findByIdAndDeletionDateIsNull(id)
             .orElseThrow(() -> new ProductNotFoundException("Product not found with id: " + id));
 
         this.categoriesValidation(productDTO);
@@ -86,26 +87,28 @@ public class ProductBO implements IProductBO {
     }
 
     private void categoriesValidation(ProductDTO productDTO) {
-        productDTO.getCategories().forEach(categoryDTO -> categoryRepository.findById(categoryDTO.getId())
+        productDTO.getCategories().forEach(categoryDTO -> categoryRepository.findByIdAndDeletionDateIsNull(categoryDTO.getId())
             .orElseThrow(() -> new CategoryNotFoundException("Category not found with id: " + categoryDTO.getId())));
     }
 
     private void brandsValidation(ProductDTO productDTO) {
-        productDTO.getBrands().forEach(brandDTO -> brandRepository.findById(brandDTO.getId())
+        productDTO.getBrands().forEach(brandDTO -> brandRepository.findByIdAndDeletionDateIsNull(brandDTO.getId())
             .orElseThrow(() -> new BrandNotFoundException("Brand not found with id: " + brandDTO.getId())));
     }
 
     @Override
     public void deleteProduct(Long id) {
-        productRepository.findById(id)
+        Product product = productRepository.findById(id)
             .orElseThrow(() -> new ProductNotFoundException("Product not found with id: " + id));
-        productRepository.deleteById(id);
+        product.setDeletionDate(LocalDateTime.now());
+        productRepository.save(product);
+
     }
 
     @Override
     public List<ProductDTO> findAllByCategoryId(Long categoryId) {
 
-        List<Product> products = productRepository.findAllByCategoriesId(categoryId);
+        List<Product> products = productRepository.findAllByCategoriesIdAndDeletionDateIsNull(categoryId);
         if(!products.isEmpty()) {
             return products.stream()
                 .map(productMapper::convertToDTO)
@@ -117,7 +120,7 @@ public class ProductBO implements IProductBO {
 
     @Override
     public List<ProductDTO> findAllByBrandId(Long brandId) {
-        List<Product> products = productRepository.findAllByBrandsId(brandId);
+        List<Product> products = productRepository.findAllByBrandsIdAndDeletionDateIsNull(brandId);
         if(!products.isEmpty()) {
             return products.stream()
                 .map(productMapper::convertToDTO)
