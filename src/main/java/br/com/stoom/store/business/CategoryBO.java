@@ -15,11 +15,14 @@ import org.springframework.stereotype.Service;
 @Service
 public class CategoryBO implements ICategoryBO {
 
-    @Autowired
     private CategoryRepository categoryRepository;
 
-    @Autowired
     private CategoryMapper categoryMapper;
+
+    public CategoryBO(CategoryRepository categoryRepository, CategoryMapper categoryMapper) {
+        this.categoryRepository = categoryRepository;
+        this.categoryMapper = categoryMapper;
+    }
 
     @Override
     public List<CategoryDTO> findAll() {
@@ -62,7 +65,7 @@ public class CategoryBO implements ICategoryBO {
 
     @Override
     public void deleteCategory(Long id) {
-        Category category = categoryRepository.findById(id)
+        Category category = categoryRepository.findByIdAndDeletionDateIsNull(id)
             .orElseThrow(() -> new CategoryNotFoundException("Category not found with id: " + id));
 
         category.setId(id);

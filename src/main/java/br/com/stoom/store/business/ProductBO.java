@@ -98,7 +98,7 @@ public class ProductBO implements IProductBO {
 
     @Override
     public void deleteProduct(Long id) {
-        Product product = productRepository.findById(id)
+        Product product = productRepository.findByIdAndDeletionDateIsNull(id)
             .orElseThrow(() -> new ProductNotFoundException("Product not found with id: " + id));
         product.setDeletionDate(LocalDateTime.now());
         productRepository.save(product);
