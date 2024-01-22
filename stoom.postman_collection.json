@@ -1,0 +1,416 @@
+{
+	"info": {
+		"_postman_id": "8f1b6254-d067-4d1d-a7f9-cbc55af316c4",
+		"name": "Stoom",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Products",
+			"item": [
+				{
+					"name": "/api/products",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/products/",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"products",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/api/products/{id}",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/products/52",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"products",
+								"52"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/api/products/category/{id}",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/products/category/102",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"products",
+								"category",
+								"102"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/api/products/brand/{id}",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/products/brand/52",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"products",
+								"brand",
+								"52"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/api/products",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"sku\": \"MASC1234AZUL\",\n    \"name\": \"Tênis\",\n    \"description\": \"Tênis masculino azul\",\n    \"prices\": [\n        {\n            \"amount\": 1,\n            \"price\": 10.00\n        }\n    ],\n    \"categories\": [\n        {\n            \"id\": 1,\n            \"name\": \"Tênis\"\n        },\n        {\n            \"id\": 102,\n            \"name\": \"Azul\"\n        },\n        {\n            \"id\": 3,\n            \"name\": \"Masculino\"\n        }\n    ],\n    \"brands\": [\n        {\n            \"id\": 52,\n            \"name\": \"Adidas\"\n        }\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/api/products/",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"products",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/api/products",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": 402,\n    \"sku\": \"FEM1234BRANCO\",\n    \"name\": \"Tênis\",\n    \"description\": \"Tênis feminino branco\",\n    \"prices\": [\n        {\n            \"amount\": 1,\n            \"price\": 10.00\n        }\n    ],\n    \"categories\": [\n        {   \n            \"id\": 52,\n            \"name\": \"Branco\"\n        },\n        {   \n            \"id\": 1,\n            \"name\": \"Tênis\"\n        },\n        {   \n            \"id\": 4,\n            \"name\": \"Feminino\"\n        }\n    ],\n    \"brands\": [\n        {\n            \"id\": 1,\n            \"name\": \"Nike\"\n        }\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/api/products/402",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"products",
+								"402"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/api/products/{id}",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/products/402",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"products",
+								"402"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Category",
+			"item": [
+				{
+					"name": "/api/category",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/category",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"category"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/api/category/{id}",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/category/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"category",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/api/category",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Azul\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/api/category",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"category"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/api/category",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": 102,\n    \"name\": \"Azul\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/api/category/102",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"category",
+								"102"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/api/category/{id}",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/category/4",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"category",
+								"4"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Brand",
+			"item": [
+				{
+					"name": "/api/brand",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/brand",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"brand"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/api/brand/{id}",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/brand/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"brand",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/api/brand",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Adidas\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/api/brand",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"brand"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/api/brand",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": 52,\n    \"name\": \"Adidas\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/api/brand/52",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"brand",
+								"52"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/api/brand/{id}",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/brand/102",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"brand",
+								"102"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
